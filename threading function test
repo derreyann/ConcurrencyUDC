@@ -1,0 +1,28 @@
+int main(){
+    pthread_t thr;
+    struct res *r;
+    struct args *args = mallocsizeof(struct args);
+    args->i= ;//rest , args 
+    args->c = ;//resr
+};
+
+struct args{
+    int i;
+    char c;
+};
+
+struct thr_res{
+    int res1;
+    float res2;
+};
+
+
+void *thread_function(void *p){
+    struct args *args =p;
+    struct res *r = malloc(sizeof(struct res));
+    //using parameters as args->i etc...
+    r->res1=;//....
+    return r;
+}
+
+

@@ -1,0 +1,22 @@
+#include <sys/mman.h>
+#include <stdlib.h>
+
+
+int main(){
+    char *shr;
+    int size=100;
+    /**
+     * @brief mmaap quick description MAP_ANONYMOUS means no file selected, 0
+     * 
+     */
+    if(shr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, 0 /* put openfunction inside for file, ex : int fd=open(...)*/, 0)==NULL){
+        exit(0);
+    }
+    if(fork()==0){
+        //starting child process
+    }
+    else{
+        //parent
+    }
+}
+

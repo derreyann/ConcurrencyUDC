@@ -1,0 +1,27 @@
+#include <pthread.h>
+
+main(){
+    struct arg *arg=malloc(//sierofetc...);
+    arg->I=0;
+
+    pthread_create(/*... */, thread_function, arg);
+}
+
+
+thread_function(void *p){
+
+}
+
+/**
+ * @brief best practice to use malloc to control life of variable 
+ * 
+ * @return pthread_t 
+ */
+
+pthread_t f(){
+    struct arg *argc=malloc();
+    arg.I=0;
+    pthread_t t;
+    pthread_create(&t, NULL, thread_function, &argc);
+}
+

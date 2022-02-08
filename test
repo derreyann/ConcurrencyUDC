@@ -1,0 +1,67 @@
+/**
+ * @file critical section, using shared resources for consistancy
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-02-04
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
+#include <pthread.h>
+#include <stdlib.h>
+
+/**
+ * @brief i is general function
+ * 
+ */
+int i=0;
+
+/**
+ * @brief incrementing inside local copy, modifying the general variable
+ * 
+ * @param p 
+ */
+void inc(void *p){
+    int v;
+    /**
+     * @brief critical section here
+     * 
+     */
+    // LOCK instruction; (thread 1 can continue, not others)
+    v=i;
+    v++;
+    i=v;
+    // UNLOCK;
+}
+//atomic operation
+setunset(int *i){
+    /**
+     * @brief spinlock, all the other threads are looping
+     * 
+     * @param i 
+     */
+    lock(int *i){
+        while(setunset(i))==1){
+        }
+    }
+    unlock(int *i){
+        *i=0;
+    }
+}
+
+/**
+ * @brief lock and unlock is done using mutex
+ * 
+ */
+
+pthread_mutex_t m;
+
+pthread_mutex_init(&m, NULL);
+pthread_mutex_destroy(&m);
+
+pthread_mutex_lock(&m);
+pthread_mutex_unlock(&m);
+
+pthread_mutex_trylock(&m);
