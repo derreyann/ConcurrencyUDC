@@ -1,15 +1,47 @@
-void insert(element *e){
-    element remove();
-    int elements(); //number of elements in buffer
-    int buffer_size(); //max number of elements
-}
-
+void insert(element *e);
+element remove();
+int elements(); //number of elements in buffer
+int buffer_size(); //max number of elements
+mutex bufferlock
+cond FULL, EMPTY
+/**
+ * @brief producer function, checks if is full, waits
+ * 
+ */
 producer(){
     int done=0;
-    while(!done){
-        if(elements()<size()){
-            insert();
-            done=1;
-        }
+    element e=create_element();
+    lock(bufferlock);
+    while(elements()==size()){ //buffer is FULL
+        wait(FULL,bufferlock); //wait for it to empty
     }
+    if(elements()==1){
+        signal(EMPTY);
+    }
+    unlock(bufferlock);
+}
+/**
+ * @brief waits for it go fullup, then takes out
+ * 
+ */
+consummer(){
+    lock(bufferlock);
+    if(elements()==0){
+        wait(EMPTY, bufferlock);
+    }
+    element e=remove();
+    if(elements()==size()-1){
+        signal(FULL);
+    }
+    unlock(bufferlock);
+    process(e);
+}
+/**
+ * @brief wait function, atomic instr
+ * 
+ */
+wait(){
+    unlock();
+    sleep();
+    lock();
 }
