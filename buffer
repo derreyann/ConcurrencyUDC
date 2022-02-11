@@ -1,0 +1,15 @@
+void insert(element *e){
+    element remove();
+    int elements(); //number of elements in buffer
+    int buffer_size(); //max number of elements
+}
+
+producer(){
+    int done=0;
+    while(!done){
+        if(elements()<size()){
+            insert();
+            done=1;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+// POSIX Semaphores
+
+#include <semaphore.h>
+#include <pthread.h>
+
+sem_t *sem;
+
+int sem_init(sem_t *sem, int pshared, int value);
+int sem_destroy(*sem);
+int sem_wait(*sem);
+int sem_trywait(*sem);
+int sem_timedwait()/**
+ * @brief trying semaphores
+ * example function
+ */
+
+int main(){
+    sem_t *sem; int *shr_i;
+
+    shr_i=mmap(NULL, sizeof()//...);
+
+    sem=mmap(NULL,//...);
+
+    sem_init(sem, 1, 1) //second argument means if 0, shared between threads,
+
+
+}
