@@ -1,3 +1,21 @@
+/**
+ * @file buffer
+ * @author Yann Derré (yann.derre@utbm.fr)
+ * @brief 
+ * @version 0.1
+ * @date 11-02-2022
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+#include <pthread.h>
+
+/**
+ * @brief here, signal and broadcast are equivalenet of */ pthread_cond_signal /* and */ pthread_cond_broadcast
+ /* 
+ * @param e 
+ */
+
 void insert(element *e);
 element remove();
 int elements(); //number of elements in buffer
@@ -13,6 +31,7 @@ producer(){
     element e=create_element();
     lock(bufferlock);
     while(elements()==size()){ //buffer is FULL
+        producerwaiting++;
         wait(FULL,bufferlock); //wait for it to empty
     }
     if(elements()==1){
@@ -26,7 +45,7 @@ producer(){
  */
 consummer(){
     lock(bufferlock);
-    if(elements()==0){
+    while(elements()==0){
         wait(EMPTY, bufferlock);
     }
     element e=remove();
