@@ -24,6 +24,15 @@ int customers=0;
 pthread_mutex_t mutex;
 
 cond no_customers, waiting_room;
+
+
+//adding queuing to barber problem
+struct sleep_info{
+    int bnum, cnum;
+    cond sleep;
+}
+queue customerq;
+queue barberq;
 ```
 
 ## Barber
@@ -35,6 +44,12 @@ if(customers==0){
     wait(no_customers, shop);
     barber_state=working;
 }else{
+    /** alt version queuing
+     * customers--;
+     * struct sleep_info *cust;
+     * cust=removequeue(customerq);
+     * signal(cust->sleep);
+     **/
     pthread_cond signal(waiting_room);
     customers--;
 }
@@ -44,12 +59,23 @@ cut_hair();
 ## Customer
 
 ```c
+//init variables
+int cnum;
+struct sleep_info inf;
+
 lock(shop);
 if(customers==max_waiting){
     unlock(shop);
 }else{
     if(barber_state==working){
         customers++;
+        /** alt version queuing
+         * 
+         * inf.cnum=cnum;
+         * insert_queue(customerq, inf);
+         * wait(inf.sleep, shop);
+         * 
+         **/
         wait(waiting_room);
     }else{ //baber sleeps
         signal(no_customers)
