@@ -1,4 +1,13 @@
+- [Sleeping barber](#sleeping-barber)
+  - [Init](#init)
+  - [Barber](#barber)
+  - [Customer](#customer)
+- [Semaphores version](#semaphores-version)
+  - [Barbers](#barbers)
+  - [Customers](#customers)
+
 # Sleeping barber
+
 
 ## Init
 
@@ -21,11 +30,13 @@ cond no_customers, waiting_room;
 ```c
 lock(shop);
 if(customers==0){
-    barber_state=sleeping;
+    //barber_state=sleeping;
+    barbers++
     wait(no_customers, shop);
     barber_state=working;
 }else{
     pthread_cond signal(waiting_room);
+    customers--;
 }
 unlock(shop);
 cut_hair();
@@ -42,9 +53,31 @@ if(customers==max_waiting){
         wait(waiting_room);
     }else{ //baber sleeps
         signal(no_customers)
-        barber_state(working);
+        barbers--;
+        //barber_state(working);
     }
     unlock(shop);   
     cut_hair();
+}
+```
+
+# Semaphores version
+```c
+sem barbers=0, customers=0, waiting_room=, max_waiting;
+```
+## Barbers
+```c
+V(barbers);
+P(customers);
+```
+## Customers
+```c
+if(try(p(waiting_room))==-1){
+} //trywait() in the sem library
+else{
+V(customers);
+P(Barbers);
+V(waiting_room);
+cut_hair();
 }
 ```
