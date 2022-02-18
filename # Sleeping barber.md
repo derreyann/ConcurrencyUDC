@@ -45,10 +45,13 @@ if(customers==0){
     barber_state=working;
 }else{
     /** alt version queuing
+     * 
      * customers--;
      * struct sleep_info *cust;
      * cust=removequeue(customerq);
      * signal(cust->sleep);
+     * cust->bnum=bnm;
+     * 
      **/
     pthread_cond signal(waiting_room);
     customers--;
@@ -73,7 +76,7 @@ if(customers==max_waiting){
          * 
          * inf.cnum=cnum;
          * insert_queue(customerq, inf);
-         * wait(inf.sleep, shop);
+         * wait(inf.sleep, shop); 
          * 
          **/
         wait(waiting_room);
