@@ -76,7 +76,7 @@ if(customers==max_waiting){
          * 
          * inf.cnum=cnum;
          * insert_queue(customerq, inf);
-         * wait(inf.sleep, shop); 
+         * wait(inf.sleep, shop); >
          * 
          **/
         wait(waiting_room);
