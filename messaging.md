@@ -186,3 +186,71 @@ add(X,Y) ->
 
 # List comprehension
 
+## Comprehensions
+```erlang
+[Pattern || Generator1, Generator2, ... Constraint1, Constraint2,...]
+
+Pat <- List.
+
+%Example
+
+1> [X || X <- [1,2,3,4], X > 2].
+[3,4]
+2> [X || X <- [1,2,3,4], X rem 2 == 0].
+[2,4]
+3> [X || X <- [1,2,3,4],
+Y <- [2,4,6,8],
+X == Y].
+[2,4]
+```
+
+#### Functions using list comprehension
+
+```erlang
+map(F, List) ->
+    [F(X) || X<-List].
+filter(Pred, List) ->
+    [X || X<-List, Pred(X)].
+qsort([]) -> [];
+qsort([H|T]) ->
+    [X || X <- T, X<H] ++ [H] ++ [X || X <- T, X>=H].
+```
+
+## COMPILING AND EXECUTING
+
+```shell
+$ erl
+Erlang R14A (erts-5.8) [source] [64-bit] [smp:2:2]
+[rq:2] [async-threads:0] [kernel-poll:false]
+Eshell V5.8 (abort with ^G)
+1>
+
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+(v)ersion (k)ill (D)b-tables (d)istribution
+```
+#### Compiling using erl shell
+```erlang
+$ erl
+Erlang R14A (erts-5.8) [source] [64-bit] [smp:2:2]
+[rq:2] [async-threads:0] [kernel-poll:false]
+Eshell V5.8 (abort with ^G)
+1> c(helloworld).
+{ok, helloworld}
+2> helloworld:hello().
+Hello world
+ok
+3>
+```
+
+### Also via shell script
+
+```shell
+#!/usr/bin/escript
+main(_) ->
+io:format(”Hello world~n”).
+
+
+$ chomd +x hello
+$ ./hello
+Hello world
+```
