@@ -1,5 +1,5 @@
 # Messaging 
-```
+
 **Something called share nothing???**
 
 Concurrent programming, sending messages between processes. No shared memory, no semaphores nor mutex
@@ -14,7 +14,7 @@ Type of communication:
 
 send(destination, type, message)
 recv(source, type, message)
-```
+
 
 # introduction to erlang
 
