@@ -254,3 +254,126 @@ $ chomd +x hello
 $ ./hello
 Hello world
 ```
+
+## Server processes
+
+## Signals
+
+#### links
+
+```erlang
+link(Pid)
+spawn_link(Module, Fun, Args)
+
+%removing links 
+unlink(Pid)
+```
+
+Process ended, signal goes to all linked processes
+
+Messages and signals are not the same thing
+
+```erlang
+exit(Reasons)
+
+exit(Pid, Reasons)
+```
+
+***Reason might be***
+* atom normal
+* kill
+* other
+
+#### trap exits
+
+```erlang
+process_flag(trap_exit, true)
+
+%the exit signal is changed into the message:
+{'EXIT', Pid, Reason}
+```
+#### Example of hash deleting the keys of process dying
+```erlang
+-module(hash).
+-expot([start/0, store/3, get/2, del/2, stop/1]).
+
+-export([init/0]).
+
+del(Hash, Key) -> 
+    Hash ! {del, Key}.
+
+stop(Hash) -> 
+    Hash ! stop.
+
+loop(D) -> 
+    receive
+    {store, NK, NV, From} ->
+    D2=del_key(NK, D),
+    link(From),
+    {get, K, From} ->
+        From ! find(K, D),
+        loop(D);
+    {del, KD} ->
+        loop(KD, D);
+    {'EXIT', Pid, _} -> 
+        loop(del_all_keys(D, Pid));
+    stop ->
+        ok
+end.
+```
+
+## Distribution
+
+Node is a named VM 
+```shell
+
+erl -name node1
+
+erl -name test
+```
+
+**Creating a process in différent node**
+
+```
+Pid=spawn('test&@server1.udc.es', demo, init, [1]).
+
+Pid ! hello.
+```
+
+**Messages to registered processes**
+
+```
+{db_server, 'test@server1.udc.es'} ! hello.
+```
+
+*Knowing when process dies*
+
+**Monitoring nodes!**
+
+```erlang
+wait_node() ->
+    N='test@server1.udc.es', 
+    monitor_node(N, true),
+    receive
+        {nodedown, N} ->
+            down;
+        Message -> 
+            monitor_node(N, false)
+    end.
+```
+
+**Authentification**
+
+using Cookies
+* SETTING **.ERLANG.COOKIE** from the $HOME dir
+
+
+**Built in functions**
+```erlang
+spawn(Node, M, F, A), spawn_link(Node, M, F, A)
+node() %gives current node
+nodes() %all active nodes
+node(Pid) %gives where process is
+set_cookie(Node, cookie), get_cookie()
+```
+
