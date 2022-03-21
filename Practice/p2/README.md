@@ -1,6 +1,8 @@
 # Concurrency and Parallelism
+
 *Degree in Computer Science 2022
 **Lab 2 – MD5*
+
 In many system that need to authenticate using passwords, they are transformed using a hash
 function. To check if a password is correct, we apply the hash function and compare with the
 stored hash. If there is a security breach, the passwords are not exposed because the hash function
