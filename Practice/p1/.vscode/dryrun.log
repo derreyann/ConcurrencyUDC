@@ -1,0 +1,7 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/yannderre/p1-derreyann'
+gcc -Wall -pthread -g -c bank.c
+gcc -Wall -pthread -g -c options.c
+gcc -Wall -pthread -g -o bank bank.o options.o 
+make: Leaving directory `/Users/yannderre/p1-derreyann'
+ 

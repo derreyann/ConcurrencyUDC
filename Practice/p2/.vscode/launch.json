@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Make+Debug",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/break_md5",
+            "args": ["76a2173be6393254e72ffa4d6df1030a"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "${defaultBuildTask}"
+        }
+    ]
+}

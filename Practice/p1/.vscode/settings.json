@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/yannderre/p1-derreyann",
+            "binaryPath": "/Users/yannderre/p1-derreyann/bank",
+            "binaryArgs": []
+        }
+    ]
+}
